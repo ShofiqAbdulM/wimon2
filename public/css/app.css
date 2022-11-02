@@ -1,0 +1,29 @@
+.bg-image {
+    background: url(../img/alun-alun-batu.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bg-login-image {
+    background: url(../img/wimon.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 25em;
+    background-color: #000;
+}
+
+.bg-register-image {
+    background: url(../img/hori.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 32em;
+    background-color: #000;
+}
+
+.bg-password-image {
+    background: url(../img/hori.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 32em;
+    background-color: #000;
+}
