@@ -27,6 +27,3 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 {{-- jquery google --}}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-{{-- leaflet sidebar --}}
-{{-- <link rel="stylesheet" href="{{ asset('AdminLTE') }}/sidebar-v2/css/leaflet-sidebar.css" />
-<script src="{{ asset('AdminLTE') }}/sidebar-v2/js/leaflet-sidebar.js"></script> --}}

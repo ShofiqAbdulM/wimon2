@@ -30,8 +30,6 @@ Route::get('/wisata/view-edit/{id}', [HomeController::class, 'viewEditWisata'])-
 Route::post('/wisata/edit/{id}', [HomeController::class, 'editWisata'])->name('detail_wisata');
 Route::get('/wisata/delete/{id}', [HomeController::class, 'deleteWisata'])->name('delete.wisata');
 Route::get('/wisata/cari', [HomeController::class, 'cari']);
-Route::get('/wisata/cobak', [HomeController::class, 'json']);
-
 
 
 //pengunjung

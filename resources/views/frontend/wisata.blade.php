@@ -1,23 +1,14 @@
 @extends('layouts.front')
 @section('content')
-    <div class="col-lg-8 mb-2">
+    <div class="col-lg-12 mb-1">
+        {{-- <div id="findbox"></div> --}}
+        <div id="findbox" class="row justify-content-center">
+        </div>
         <div id='map' style="height:56em;"></div>
     </div>
-    <div class="col-lg-4 mb-1 mt-2">
-        <div class="row flex-grow">
-            <div class="col-xl-12">
-                <select onchange="cari(this.value)" class="form-control selectpicker align-items-center mb-3"
-                    data-live-search="true" name="company_id">
-                    <option value="">---- Pilih Wisata ----</option>
-                    @foreach ($keyword as $key)
-                        <option value="{{ $key->id_wisata }}">{{ $key->nama }}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
+    <div id="side-bar">
         <div class="row justify-content-center">
             <div class="col-md-12 d-inline text-center">
-                {{-- @foreach ($sensor as $sen) --}}
                 <div class="card col-md-12 p-0">
                     <div class="card-header pb-0 bg-primary" style="font-size: 1em;">
                         <p>Jumlah Pengunjung Masuk</p>
@@ -48,9 +39,22 @@
                             readonly>
                     </div>
                 </div>
-                {{-- @endforeach --}}
             </div>
         </div>
+    </div>
+    <div class="col-lg-8 mb-1 mt-2">
+        <div class="row flex-grow">
+            <div class="col-xl-12">
+                <select onchange="cari(this.value)" class="form-control selectpicker align-items-center mb-3"
+                    data-live-search="true" name="company_id">
+                    <option value="">---- Pilih Wisata ----</option>
+                    @foreach ($keyword as $key)
+                        <option value="{{ $key->id_wisata }}">{{ $key->nama }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+
     </div>
     <script>
         var peta1 = L.tileLayer(
@@ -88,6 +92,7 @@
         var map = L.map('map', {
             center: [-7.884550294687469, 112.52448965839899],
             zoom: 14,
+            zoomControl: false,
             layers: [peta1]
         });
 
@@ -97,9 +102,15 @@
             "peta3": peta3,
             "peta4": peta4
         };
+
         L.control.layers(baseMaps).addTo(map);
 
-        var geoLayer;
+        // var geoLayer;
+        var sidebar = L.control.sidebar('side-bar', {
+            closeButton: false,
+            position: 'right'
+        }).addTo(map);
+
         $.getJSON('wisata/geojson', function(json) {
             $.each(json, function(index) {
                 // alert(json.id_wisata[index])
@@ -114,47 +125,88 @@
                     },
                     onEachFeature: function(feature, layer) {
                         layer.on('click', (f) => {
-                            $.getJSON('wisata/' + feature.properties.id, function(
-                                detail) {
-                                var html =
-                                    '<div align="center"><p style="color:#FF0000;  font-family:Helvetica Neue; font-size:25px;" class="text-uppercase"><strong>' +
-                                    detail.lokasi[0].nama +
-                                    '</strong></p>';
-                                html += '<img src="gambar/' + detail.lokasi[0]
-                                    .gambar +
-                                    '" width="300px"></div>';
-                                // // specify popup options
-                                // var customOptions = {
-                                //     'maxWidth': '5000',
-                                // }
-                                L.popup()
-                                    .setLatLng(layer.getBounds()
-                                        .getCenter())
-                                    .setContent(html)
-                                    .addTo(map);
+                            $.getJSON('wisata/' + feature.properties.id,
+                                function(
+                                    detail) {
+                                    var html =
+                                        '<div align="center"><p style="color:#FF0000;  font-family:Helvetica Neue; font-size:25px;" class="text-uppercase"><strong>' +
+                                        detail.lokasi[0].nama +
+                                        '</strong></p>';
+                                    html += '<img src="gambar/' + detail.lokasi[0]
+                                        .gambar +
+                                        '" width="300px"></div>';
 
-                                $("#masuk").val(detail.sensor_masuk)
-                                    .keyup();
-                                $("#keluar").val(detail.sensor_keluar)
-                                    .keyup();
-                                $("#saat_ini").val(detail.pengunjung).keyup();
+                                    L.popup()
+                                        .setLatLng(f.latlng)
+                                        .setContent(html)
+                                        .addTo(map);
 
-                            });
+                                    $("#masuk").val(detail.sensor_masuk)
+                                        .keyup();
+                                    $("#keluar").val(detail.sensor_keluar)
+                                        .keyup();
+                                    $("#saat_ini").val(detail.pengunjung).keyup();
+
+                                });
                         })
+                        layer.on('click', (e) => {
+                            sidebar.toggle()
+                        });
                         layer.addTo(map);
                     }
-                })
+                });
+                // geoLayer2 = L.geoJson(JSON.parse(json[index].map), {
+                //     map.on('click', (e) => console.log(e))
+
+                // onEachFeature: function(feature, layer) {
+                //     layer.on('click', (f) => {
+                //         // alert(f.sidebar);
+                //         sidebar.toggle()
+                //     })
+                // }
+                // });
+                // // sidebar blm bisa
+                // var geoLayer = {
+                //     "layer 1": geoLayer1,
+                //     "layer 2": geoLayer2,
+                // };
             })
         });
 
-        // Script Detail Pencarian
-        function cari(id_wisata) {
-            geoLayer.eachLayer(function(layer) {
-                if (layer.feature.properties.id == id_wisata) {
-                    map.flyTo(layer.getBounds().getCenter(), 17);
-                    // layer.bindPopup(layer.feature.properties.nama);
-                }
-            });
-        };
+        // data database id, nama, map json
+        var allwisata = @json($keyword);
+
+        var geoLayer = new L.LayerGroup();
+        map.addLayer(geoLayer);
+
+        var searchControl = new L.Control.Search({
+            // container: 'findbox',
+            // position: 'topright',
+            initial: false,
+            layer: geoLayer,
+            zoom: 15,
+            collapsed: false,
+            marker: false
+        });
+
+        map.addControl(searchControl);
+
+        for (i in allwisata) {
+            // alert(allwisata[i].map)
+            var nama_wisata = allwisata[i].nama; //value searched
+            var loc = allwisata[i].map; //position found
+            var parselokasi = L.geoJson(JSON.parse(loc), {
+                title: nama_wisata
+            }); //se property searched
+            geoLayer.addLayer(parselokasi);
+        }
+        // // Script Detail Pencarian
+        // function cari(id_wisata) {
+        //     geoLayer.eachLayer(function(layer) {
+        //         if (layer.feature.properties.id == id_wisata) {
+        //             map.flyTo(layer.getBounds().getCenter(), 17);
+        //         }
+        //     });
+        // };
     </script>
 @endsection

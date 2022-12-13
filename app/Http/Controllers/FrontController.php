@@ -16,13 +16,13 @@ class FrontController extends Controller
 
     public function index()
     {
-        $keyword = $this->Wisata->allLokasi();
+        $keyword = $this->Wisata->getGeojson();
         return view('frontend.wisata', ['keyword' => $keyword]);
     }
 
     public function geojson($id = '')
     {
-        $key = $this->Wisata->getGeojson($id);
+        $key = $this->Wisata->allLokasi($id);
         return json_encode($key);
     }
 

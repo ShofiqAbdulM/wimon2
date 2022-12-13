@@ -11,7 +11,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <title>{{ config('back.name', 'Wisata Monitoring Admin') }}</title>
 
     @include('layouts/aset/head')
-    @include('layouts/aset/include')
+    @include('layouts/aset/leaflet')
     @include('layouts/aset/flash')
 
 </head>

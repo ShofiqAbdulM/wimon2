@@ -60,7 +60,7 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label for="map">Map Geojson</label>
-                                            <div id='map' style="height:250px;"></div>
+                                            <div id='map' name="geo" style="height:250px;"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -70,7 +70,7 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <a href="/home" class="btn btn-secondary">Cancel</a>
-                                        <input type="submit" value="Create new Wisata " class="btn btn-success float-right"
+                                        <input type="submit" value="Update" class="btn btn-success float-right"
                                             id="convert">
                                     </div>
                                 </div>
@@ -92,23 +92,17 @@
             attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
         // FeatureGroup is to store editable layers
-        var drawnItems;
-        $.getJSON('/wisata/view-edit/{id}', function(json) {
-            $.each(json, function(index) {
-                drawnItems = L.geoJson(JSON.parse(json[index].map), {
-                    onEachFeature: function(feature, layer) {
-                        drawnItems.addLayer(layer);
-                    }
-                })
-            })
-        });
+        var polygon = @json($detail_wisata->map);
+        var drawnItems = L.geoJson(JSON.parse(polygon)).addTo(map);
+
+        map.addLayer(drawnItems);
         var drawControl = new L.Control.Draw({
             edit: {
                 featureGroup: drawnItems
-            }
+            },
+            remove: false
         });
         map.addControl(drawControl);
-
         map.on('draw:created', function(event) {
             var layer = event.layer,
                 feature = layer.feature = layer.feature || {};
@@ -120,15 +114,22 @@
             props.id = $('#kode').val();
             drawnItems.addLayer(layer);
 
-            document.getElementById("convert").addEventListener("click", function() {
-                var hasil = $("#geo").html(JSON.stringify(drawnItems.toGeoJSON()));
-                var data_wisata = document.getElementById("#hasil").innerHTML;
-                if (data_wisata == '{"type":"FeatureCollection","features":[]}') {
-                    alert('datakosng');
-                } else {
-                    alert('data ada')
-                }
-            })
-        })
+            $("[name=geoJson]").html(JSON.stringify(drawnItems.toGeoJSON()));
+            // document.getElementById("convert").addEventListener("click", function() {
+            //     var hasil = $("#geo").html(JSON.stringify(drawnItems.toGeoJSON()));
+            //     var data_wisata = document.getElementById("geo").innerHTML;
+            //     if (data_wisata == '{"type":"FeatureCollection","features":[]}') {
+            //         alert('data kosong');
+            //     } else {
+            //         alert('data ada')
+            //     }
+            // })
+        });
+        map.on('draw:edited', function(event) {
+            $("[name=geoJson]").html(JSON.stringify(drawnItems.toGeoJSON()));
+        });
+        map.on('draw:deleted', function(event) {
+            $("[name=geoJson]").html("");
+        });
     </script>
 @endsection

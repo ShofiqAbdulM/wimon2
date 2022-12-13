@@ -11,9 +11,41 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <title>{{ config('front.name', 'Wisata Monitoring') }}</title>
 
     @include('layouts/aset/head')
-    @include('layouts/aset/include')
+    @include('layouts/aset/leaflet')
     @include('layouts/aset/flash')
+    <style>
+        .side-bar {
+            position: absolute;
+            top: 500px;
+            left: 50px;
+            right: 50px;
+            padding: 0 1em;
+            background-color: rgba(255, 255, 255, 0.9);
+            overflow: auto;
+            z-index: 2;
+        }
 
+        #findbox {
+            position: fixed;
+            display: block;
+            height: auto;
+            margin: 10px auto 0;
+            cursor: auto;
+            z-index: 1000;
+        }
+
+        /* #findbox {
+            background: #eee;
+            border-radius: .125em;
+            border: 2px solid #1978cf;
+            box-shadow: 0 0 8px #999;
+            margin-bottom: 10px;
+            padding: 2px 0;
+            width: 600px;
+            height: 26px;
+        } */
+
+    </style>
 </head>
 
 <body class="hold-transition layout-top-nav">
@@ -51,14 +83,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
         <!-- /.content-wrapper -->
 
-        {{-- <!-- Main Footer -->
-        <footer class="main-footer">
-            <!-- To the right -->
-            <div class="footer text-right">
-                <strong>Copyright &copy; 2022 <a href="https://adminlte.io">WiMoN</a></strong>
-            </div>
-            <!-- Default to the left -->
-        </footer> --}}
     </div>
     <!-- ./wrapper -->
 

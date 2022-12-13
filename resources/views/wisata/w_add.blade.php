@@ -118,15 +118,16 @@
             props.id = $('#kode').val();
             drawnItems.addLayer(layer);
 
-            document.getElementById("convert").addEventListener("click", function() {
-                var hasil = $("#geo").html(JSON.stringify(drawnItems.toGeoJSON()));
-                var data_wisata = document.getElementById("#hasil").innerHTML;
-                if (data_wisata == '{"type":"FeatureCollection","features":[]}') {
-                    alert('datakosng');
-                } else {
-                    alert('data ada')
-                }
-            })
+            $("[name=geoJson]").html(JSON.stringify(drawnItems.toGeoJSON()));
+            // document.getElementById("convert").addEventListener("click", function() {
+            //     var hasil = $("#geo").html(JSON.stringify(drawnItems.toGeoJSON()));
+            //     var data_wisata = document.getElementById("geo").innerHTML;
+            //     if (data_wisata == '{"type":"FeatureCollection","features":[]}') {
+            //         alert('datakosng');
+            //     } else {
+            //         alert('data ada')
+            //     }
+            // })
         })
     </script>
 @endsection

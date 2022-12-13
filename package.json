@@ -22,6 +22,8 @@
     },
     "dependencies": {
         "leaflet-draw": "^1.0.4",
+        "leaflet-geosearch": "^3.7.0",
+        "leaflet-search": "^3.0.5",
         "leaflet-sidebar": "^0.2.4",
         "sweetalert2": "^11.4.19"
     }
