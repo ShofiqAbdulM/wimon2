@@ -6,6 +6,7 @@ use App\Http\Controllers\Server\HomeController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PengunjungController;
+use App\Http\Controllers\BioWisataController;
 
 
 /*
@@ -20,6 +21,7 @@ use App\Http\Controllers\PengunjungController;
 */
 
 Route::get('/', [FrontController::class, 'index'])->name('keyword');
+// Route::get('/', [BioWisataController::class, 'index'])->name('keyword');
 
 Auth::routes();
 
@@ -34,6 +36,9 @@ Route::get('/wisata/cari', [HomeController::class, 'cari']);
 
 //pengunjung
 Route::get('/pengunjung', [PengunjungController::class, 'index'])->name('pengunjung');
+//Biodata
+Route::get('/bio_wisata', [BioWisataController::class, 'index'])->name('BioWisata');
+
 
 // Profile
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
