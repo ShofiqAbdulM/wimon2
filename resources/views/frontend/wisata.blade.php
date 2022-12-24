@@ -134,7 +134,9 @@
                                         '</strong></p>';
                                     html += '<img src="gambar/' + detail.lokasi[0]
                                         .gambar +
-                                        '" width="300px"></div>';
+                                        '" width="300px"><br> <a href="{{ route('bio_wisata') }}">Lihat Selengkapnya Mengenai Jatim Park ' +
+                                        detail.lokasi[0].nama +
+                                        '</a></div>';
 
                                     L.popup()
                                         .setLatLng(f.latlng)
@@ -181,8 +183,8 @@
 
         var searchControl = new L.Control.Search({
             // container: 'findbox',
-            // position: 'topright',
-            initial: false,
+            position: 'topleft',
+            initial: true,
             layer: geoLayer,
             zoom: 15,
             collapsed: false,
@@ -208,5 +210,11 @@
         //         }
         //     });
         // };
+        var searchControl = new L.geoJson.Search({
+        style: 'bar',
+        searchLabel: 'Sinjai',
+    });
+
+    map.addControl(searchControl);
     </script>
 @endsection
