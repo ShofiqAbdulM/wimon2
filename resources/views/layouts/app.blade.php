@@ -1,15 +1,51 @@
 <!DOCTYPE html>
-
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name', 'Login') }}</title>
+    <title>{{ config('front.name', 'Wisata Monitoring') }}</title>
 
     @include('layouts/aset/head')
+    @include('layouts/aset/leaflet')
     @include('layouts/aset/flash')
+    <style>
+        .side-bar {
+            position: absolute;
+            top: 500px;
+            left: 50px;
+            right: 50px;
+            padding: 0 1em;
+            background-color: rgba(255, 255, 255, 0.9);
+            overflow: auto;
+            z-index: 2;
+        }
 
+        /* #findbox {
+            position: fixed;
+            display: block;
+            height: auto;
+            margin: 10px auto 0;
+            cursor: auto;
+            z-index: 1000;
+        } */
+
+        /* #findbox {
+            background: #eee;
+            border-radius: .125em;
+            border: 2px solid #1978cf;
+            box-shadow: 0 0 8px #999;
+            margin-bottom: 10px;
+            padding: 2px 0;
+            width: 600px;
+            height: 26px;
+        } */
+
+    </style>
 </head>
 
 <body class="hold-transition layout-top-nav">
@@ -17,49 +53,56 @@
     <div class="wrapper">
 
         <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand-md mb-2" style="background-color: #000">
-            <div class="container">
+        {{-- <nav class="main-header navbar navbar-expand-md" style="background-color: #000; margin-bottom:12px;">
+            <a href="{{ route('keyword') }}" class="navbar-brand">
+                <img src="{{ asset('img') }}/hori.svg" alt="AdminLTE Logo" class="brand-image elevation-3"
+                    style="opacity: .8">
+            </a>
+
+            <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+        </nav> --}}
+        <!-- /.navbar -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+
+            <ul class="navbar-nav">
                 <a href="{{ route('keyword') }}" class="navbar-brand">
                     <img src="{{ asset('img') }}/hori.svg" alt="AdminLTE Logo" class="brand-image elevation-3"
-                        style="opacity: .8">
+                        style="opacity: .8;">
                 </a>
 
                 <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+            </ul>
 
+            <ul class="navbar-nav ml-auto">
 
-                <!-- Right navbar links -->
-                <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ route('login') }}">
-                            <i class="fas fa-user mr-1"></i>Login
-                        </a>
-                    </li>
-                </ul>
-            </div>
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link " href="{{ route('login') }}">
+                        <i class="fas fa-user mr-1"></i>Login
+                    </a>
+                </li>
+            </ul>
         </nav>
-        <!-- /.navbar -->
-
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            <div class="container">
-                <div class="row">
-                    @yield('content')
-                </div>
+            <div class="row-container">
+                @yield('content')
             </div>
         </div>
         <!-- /.content-wrapper -->
 
-        <!-- Main Footer -->
-        <footer class="main-footer">
-            <!-- To the right -->
-            <div class="footer text-right">
-                <strong>Copyright &copy; 2022 <a href="https://adminlte.io">WiMoN</a></strong>
-            </div>
-            <!-- Default to the left -->
-        </footer>
     </div>
     <!-- ./wrapper -->
 
@@ -72,8 +115,7 @@
     <!-- AdminLTE App -->
     <script src="{{ asset('AdminLTE') }}/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="{{ asset('js') }}/app.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/js/bootstrap-select.min.js"></script>
     <script>
         $(function() {
             @if (Session('success'))

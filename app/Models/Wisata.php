@@ -21,7 +21,7 @@ class Wisata extends Model
             ->select('id_wisata', 'nama', 'alamat', 'gambar', 'map')->get();
         return $keyword;
     }
-    public function getGeojson($id = '')
+    public function getGeojson()
     {
         $keyword = DB::table('wisata')
             ->select('id_wisata', 'nama', 'map')->get();

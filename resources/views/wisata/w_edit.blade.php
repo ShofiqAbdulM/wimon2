@@ -45,8 +45,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group ">
                                             <label for="inputDescription">Alamat Wisata</label>
-                                            <textarea id="inputDescription" name="alamat_wisata" class="form-control"
-                                                rows="5">{{ $detail_wisata->alamat }}</textarea>
+                                            <textarea id="inputDescription" name="alamat_wisata" class="form-control" rows="5">{{ $detail_wisata->alamat }}</textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -91,6 +90,7 @@
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
+
         // FeatureGroup is to store editable layers
         var polygon = @json($detail_wisata->map);
         var drawnItems = L.geoJson(JSON.parse(polygon)).addTo(map);

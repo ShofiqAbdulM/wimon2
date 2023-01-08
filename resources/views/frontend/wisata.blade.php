@@ -105,15 +105,17 @@
 
         L.control.layers(baseMaps).addTo(map);
 
-        // var geoLayer;
         var sidebar = L.control.sidebar('side-bar', {
             closeButton: false,
             position: 'right'
         }).addTo(map);
 
-        $.getJSON('wisata/geojson', function(json) {
+        // GeoJson
+        var geoLayer;
+        $.getJSON("wisata/geojson", function(json) {
             $.each(json, function(index) {
-                // alert(json.id_wisata[index])
+
+                // add GeoJSON layer to the map once the file is loaded
                 geoLayer = L.geoJson(JSON.parse(json[index].map), {
                     style: function(feature) {
                         return {
@@ -123,6 +125,7 @@
                             color: "#ff0000"
                         };
                     },
+<<<<<<< HEAD
                     onEachFeature: function(feature, layer) {
                         layer.on('click', (f) => {
                             $.getJSON('wisata/' + feature.properties.id,
@@ -137,50 +140,47 @@
                                         '" width="300px"><br> <a href="{{ route('bio_wisata') }}">Lihat Selengkapnya Mengenai Jatim Park ' +
                                         detail.lokasi[0].nama +
                                         '</a></div>';
+=======
+                    onEachFeature: function(feature, featureLayer) {
+                        featureLayer.on('click', (f) => {
+                            $.getJSON('wisata/' + feature.properties.id, function(
+                                detail) {
+                                var html =
+                                    '<div align="center"><p style="color:#FF0000;  font-family:Helvetica Neue; font-size:25px;" class="text-uppercase"><strong>' +
+                                    detail.lokasi[0].nama +
+                                    '</strong></p>';
+                                html += '<img src="gambar/' + detail.lokasi[0]
+                                    .gambar +
+                                    '" width="300px"><br> <a href="#">Lihat Selengkapnya Mengenai Jatim Park ' +
+                                    detail.lokasi[0].nama +
+                                    '</a></div>';
+>>>>>>> 88faf44 (update lagi)
 
-                                    L.popup()
-                                        .setLatLng(f.latlng)
-                                        .setContent(html)
-                                        .addTo(map);
+                                L.popup()
+                                    .setLatLng(f.latlng)
+                                    .setContent(html)
+                                    .addTo(map);
 
-                                    $("#masuk").val(detail.sensor_masuk)
-                                        .keyup();
-                                    $("#keluar").val(detail.sensor_keluar)
-                                        .keyup();
-                                    $("#saat_ini").val(detail.pengunjung).keyup();
-
-                                });
-                        })
-                        layer.on('click', (e) => {
+                                $("#masuk").val(detail.sensor_masuk)
+                                    .keyup();
+                                $("#keluar").val(detail.sensor_keluar)
+                                    .keyup();
+                                $("#saat_ini").val(detail.pengunjung).keyup();
+                            });
+                        }), featureLayer.on('click', (e) => {
                             sidebar.toggle()
-                        });
-                        layer.addTo(map);
+                        })
                     }
-                });
-                // geoLayer2 = L.geoJson(JSON.parse(json[index].map), {
-                //     map.on('click', (e) => console.log(e))
-
-                // onEachFeature: function(feature, layer) {
-                //     layer.on('click', (f) => {
-                //         // alert(f.sidebar);
-                //         sidebar.toggle()
-                //     })
-                // }
-                // });
-                // // sidebar blm bisa
-                // var geoLayer = {
-                //     "layer 1": geoLayer1,
-                //     "layer 2": geoLayer2,
-                // };
+                }).addTo(map);
+                return geoLayer;
+                // alert(geoLayer);
             })
         });
 
-        // data database id, nama, map json
-        var allwisata = @json($keyword);
 
-        var geoLayer = new L.LayerGroup();
-        map.addLayer(geoLayer);
+        alert(geoLayer);
 
+<<<<<<< HEAD
         var searchControl = new L.Control.Search({
             // container: 'findbox',
             position: 'topleft',
@@ -216,5 +216,16 @@
     });
 
     map.addControl(searchControl);
+=======
+        // Script Detail Pencarian
+        function cari(id_wisata) {
+            geoLayer.eachLayer(function(layer) {
+                // alert(layer.feature.properties.id);
+                if (layer.feature.properties.id == id_wisata) {
+                    map.fitBounds(layer.getBounds().pad(1), 17);
+                }
+            });
+        };
+>>>>>>> 88faf44 (update lagi)
     </script>
 @endsection

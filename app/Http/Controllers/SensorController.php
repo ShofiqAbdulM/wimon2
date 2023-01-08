@@ -32,6 +32,7 @@ class SensorController extends Controller
     public function tambahSensorMasuk(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            // 'id_sensor' => 'required',
             'id_wisata' => 'required',
             'masuk' => 'required'
         ]);

@@ -70,7 +70,7 @@ class HomeController extends Controller
         // $map = $request->file('map_wisata');
         // $map->move('geojson', $request->nama_wisata . '-' . $map->getClientOriginalName());
         //dd("success");
-        $gsensor = DB::table('wisata')->insert(['id_wisata' => $request->kode_wisata, 'nama' => $request->nama_wisata, 'alamat' => $request->alamat_wisata, 'gambar' => $request->nama_wisata . '-' . $gambar->getClientOriginalName(), 'map' => $request->geoJson,]);
+        $wisat = DB::table('wisata')->insert(['id_wisata' => $request->kode_wisata, 'nama' => $request->nama_wisata, 'alamat' => $request->alamat_wisata, 'gambar' => $request->nama_wisata . '-' . $gambar->getClientOriginalName(), 'map' => $request->geoJson,]);
 
         return redirect('home')
             ->with('success', 'Data Telah Di Tambahkan!');

@@ -25,14 +25,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
             z-index: 2;
         }
 
-        #findbox {
+        /* #findbox {
             position: fixed;
             display: block;
             height: auto;
             margin: 10px auto 0;
             cursor: auto;
             z-index: 1000;
-        }
+        } */
 
         /* #findbox {
             background: #eee;
@@ -44,7 +44,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             width: 600px;
             height: 26px;
         } */
-
     </style>
 </head>
 
@@ -53,7 +52,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="wrapper">
 
         <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand-md" style="background-color: #000; margin-bottom:12px;">
+        {{-- <nav class="main-header navbar navbar-expand-md" style="background-color: #000; margin-bottom:12px;">
             <a href="{{ route('keyword') }}" class="navbar-brand">
                 <img src="{{ asset('img') }}/hori.svg" alt="AdminLTE Logo" class="brand-image elevation-3"
                     style="opacity: .8">
@@ -64,17 +63,64 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <!-- Right navbar links -->
-            <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto mr-0 pr-0">
+        </nav> --}}
+        <!-- /.navbar -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+
+            <ul class="navbar-nav">
+                <a href="{{ route('keyword') }}" class="navbar-brand">
+                    <img src="{{ asset('img') }}/hori.svg" alt="AdminLTE Logo" class="brand-image elevation-3"
+                        style="opacity: .8;">
+                </a>
+
+                <button class="navbar-toggler order-1" type="button" data-toggle="collapse"
+                    data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </ul>
+
+            <ul class="navbar-nav ml-auto">
+
+                {{-- search --}}
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="{{ route('login') }}">
+                    {{-- <div id="findbox"> --}}
+                    <a class="nav-link" data-widget="navbar-search" role="button">
+                        <i class="fas fa-search"></i>
+                    </a>
+                    <div class="navbar-search-block">
+                        <form class="form-inline">
+                            <div class="input-group input-group-sm" style="width: 100%">
+                                <input id="searchwisata" class="form-control form-control-navbar" type="search"
+                                    placeholder="Search">
+                                <div class="input-group-append">
+                                    <button class="btn btn-navbar" type="submit">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                    <button class="btn btn-navbar" id="checkBTN" type="button"
+                                        data-widget="navbar-search">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    {{-- </div> --}}
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link " href="{{ route('login') }}">
                         <i class="fas fa-user mr-1"></i>Login
                     </a>
                 </li>
             </ul>
         </nav>
-        <!-- /.navbar -->
-
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <div class="row-container">
@@ -100,21 +146,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
         $(function() {
             @if (Session('success'))
                 Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: '{{ Session::get('success') }}',
-                showConfirmButton: false,
-                timer: 1500
+                    position: 'center',
+                    icon: 'success',
+                    title: '{{ Session::get('success') }}',
+                    showConfirmButton: false,
+                    timer: 1500
                 })
             @endif
             @if ($errors->any())
                 @foreach ($errors->all() as $error)
                     swal.fire({
-                    position: 'center',
-                    icon: 'error',
-                    title: '{{ $error }}',
-                    showConfirmButton: false,
-                    timer: 1500
+                        position: 'center',
+                        icon: 'error',
+                        title: '{{ $error }}',
+                        showConfirmButton: false,
+                        timer: 1500
                     })
                 @endforeach
             @endif

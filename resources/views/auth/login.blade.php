@@ -9,9 +9,9 @@
                         <div class="row">
                             <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
                             <div class="col-lg-6 p-5">
-                                <div class="p-5">
+                                <div class="p-5 card-outline card-primary">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">{{ __('Login') }}</h1>
+                                        <h1 class="h4 text-gray-900 mb-4"><b>{{ __('Login') }}</b></h1>
                                     </div>
 
                                     <form method="POST" action="{{ route('login') }}" class="user">

@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -38,6 +39,7 @@ Route::get('/wisata/cari', [HomeController::class, 'cari']);
 Route::get('/pengunjung', [PengunjungController::class, 'index'])->name('pengunjung');
 //Biodata
 Route::get('/bio_wisata', [BioWisataController::class, 'index'])->name('BioWisata');
+
 
 
 // Profile

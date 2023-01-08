@@ -97,9 +97,11 @@
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
+
         // FeatureGroup is to store editable layers
         var drawnItems = new L.FeatureGroup();
         map.addLayer(drawnItems);
+
         var drawControl = new L.Control.Draw({
             edit: {
                 featureGroup: drawnItems
@@ -119,15 +121,7 @@
             drawnItems.addLayer(layer);
 
             $("[name=geoJson]").html(JSON.stringify(drawnItems.toGeoJSON()));
-            // document.getElementById("convert").addEventListener("click", function() {
-            //     var hasil = $("#geo").html(JSON.stringify(drawnItems.toGeoJSON()));
-            //     var data_wisata = document.getElementById("geo").innerHTML;
-            //     if (data_wisata == '{"type":"FeatureCollection","features":[]}') {
-            //         alert('datakosng');
-            //     } else {
-            //         alert('data ada')
-            //     }
-            // })
+
         })
     </script>
 @endsection

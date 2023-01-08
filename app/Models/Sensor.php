@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Http\Request;
+// use Illuminate\Database\Eloquent\Factories\HasFactory;
+// use Illuminate\Http\Request;
 
 class Sensor extends Model
 {

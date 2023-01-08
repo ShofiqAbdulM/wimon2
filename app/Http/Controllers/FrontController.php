@@ -30,8 +30,8 @@ class FrontController extends Controller
     {
         $glokasi = $this->Wisata->getLokasi($id);
 
-        $sensor_masuk = $this->Wisata->getSensorMasuk();
-        $sensor_keluar = $this->Wisata->getSensorKeluar();
+        $sensor_masuk = $this->Wisata->getSensorMasuk($id);
+        $sensor_keluar = $this->Wisata->getSensorKeluar($id);
         $total_pengunjung_saat_ini = $sensor_masuk - $sensor_keluar;
 
         if ($total_pengunjung_saat_ini <= 0) {
