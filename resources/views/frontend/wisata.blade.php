@@ -125,7 +125,6 @@
                             color: "#ff0000"
                         };
                     },
-<<<<<<< HEAD
                     onEachFeature: function(feature, layer) {
                         layer.on('click', (f) => {
                             $.getJSON('wisata/' + feature.properties.id,
@@ -140,7 +139,6 @@
                                         '" width="300px"><br> <a href="{{ route('bio_wisata') }}">Lihat Selengkapnya Mengenai Jatim Park ' +
                                         detail.lokasi[0].nama +
                                         '</a></div>';
-=======
                     onEachFeature: function(feature, featureLayer) {
                         featureLayer.on('click', (f) => {
                             $.getJSON('wisata/' + feature.properties.id, function(
@@ -154,7 +152,6 @@
                                     '" width="300px"><br> <a href="#">Lihat Selengkapnya Mengenai Jatim Park ' +
                                     detail.lokasi[0].nama +
                                     '</a></div>';
->>>>>>> 88faf44 (update lagi)
 
                                 L.popup()
                                     .setLatLng(f.latlng)
@@ -180,7 +177,6 @@
 
         alert(geoLayer);
 
-<<<<<<< HEAD
         var searchControl = new L.Control.Search({
             // container: 'findbox',
             position: 'topleft',
@@ -216,7 +212,6 @@
     });
 
     map.addControl(searchControl);
-=======
         // Script Detail Pencarian
         function cari(id_wisata) {
             geoLayer.eachLayer(function(layer) {
@@ -226,6 +221,5 @@
                 }
             });
         };
->>>>>>> 88faf44 (update lagi)
     </script>
 @endsection
